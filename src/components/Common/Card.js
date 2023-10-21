@@ -1,45 +1,42 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, Typography, CardMedia } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   card: {
     display: "flex",
-    margin: theme.spacing(2),
+    margin: "16px",
+    border: "1px solid #ccc",
+    borderRadius: "4px",
+    maxWidth: "400px",
   },
   media: {
-    width: 150,
-    height: 150,
+    width: "150px",
+    height: "150px",
+    objectFit: "cover",
+    borderRadius: "4px 0 0 4px",
   },
-}));
+  content: {
+    padding: "16px",
+  },
+  title: {
+    fontSize: "1.5rem",
+    marginBottom: "8px",
+  },
+  text: {
+    marginBottom: "4px",
+  },
+};
 
 const CharacterCard = ({ character }) => {
-  const classes = useStyles();
-
   return (
-    <Card className={classes.card}>
-      <CardMedia
-        className={classes.media}
-        image={character.image}
-        title={character.name}
-      />
-      <div>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {character.name}
-          </Typography>
-          <Typography color="textSecondary">
-            {`Status: ${character.status}`}
-          </Typography>
-          <Typography color="textSecondary">
-            {`Species: ${character.species}`}
-          </Typography>
-          <Typography color="textSecondary">
-            {`Location: ${character.location.name}`}
-          </Typography>
-        </CardContent>
+    <div style={styles.card}>
+      <img src={character.image} alt={character.name} style={styles.media} />
+      <div style={styles.content}>
+        <div style={styles.title}>{character.name}</div>
+        <div style={styles.text}>{`Status: ${character.status}`}</div>
+        <div style={styles.text}>{`Species: ${character.species}`}</div>
+        <div style={styles.text}>{`Location: ${character.location.name}`}</div>
       </div>
-    </Card>
+    </div>
   );
 };
 

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Button, CircularProgress } from "@material-ui/core";
 import axios from "axios";
 import CharacterCard from "../Common/Card";
 
-const useStyles = makeStyles((theme) => ({
+const styles = {
   container: {
-    padding: theme.spacing(4),
+    padding: "16px",
   },
   loadingContainer: {
     height: "100vh",
@@ -15,12 +13,30 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   pagination: {
-    marginTop: theme.spacing(4),
+    marginTop: "16px",
+    display: "flex",
+    justifyContent: "center",
   },
-}));
+  button: {
+    padding: "8px 16px",
+    margin: "0 4px",
+    cursor: "pointer",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    backgroundColor: "transparent",
+  },
+  activeButton: {
+    padding: "8px 16px",
+    margin: "0 4px",
+    cursor: "pointer",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    backgroundColor: "#007bff",
+    color: "#fff",
+  },
+};
 
 const ListContainer = () => {
-  const classes = useStyles();
   const [characters, setCharacters] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -69,29 +85,37 @@ const ListContainer = () => {
       i++
     ) {
       paginationButtons.push(
-        <Button
+        <button
           key={i}
           onClick={() => handlePageChange(i)}
-          variant={page === i ? "contained" : "text"}
+          style={page === i ? styles.activeButton : styles.button}
         >
           {i}
-        </Button>
+        </button>
       );
     }
 
     if (startPage > 1) {
       paginationButtons.unshift(
-        <Button key="first" onClick={() => handlePageChange(1)}>
+        <button
+          key="first"
+          onClick={() => handlePageChange(1)}
+          style={styles.button}
+        >
           1
-        </Button>
+        </button>
       );
     }
 
     if (startPage + maxButtons - 1 < totalPages) {
       paginationButtons.push(
-        <Button key="last" onClick={() => handlePageChange(totalPages)}>
+        <button
+          key="last"
+          onClick={() => handlePageChange(totalPages)}
+          style={styles.button}
+        >
           {totalPages}
-        </Button>
+        </button>
       );
     }
 
@@ -101,25 +125,17 @@ const ListContainer = () => {
   return (
     <>
       {loading ? (
-        <div className={classes.loadingContainer}>
-          <CircularProgress />
+        <div style={styles.loadingContainer}>
+          <div>Loading...</div>
         </div>
       ) : (
-        <div className={classes.container}>
-          <Grid container spacing={3}>
-            {characters.map((character) => (
-              <Grid item key={character.id} xs={12} sm={6} md={4} lg={3}>
-                <CharacterCard character={character} />
-              </Grid>
-            ))}
-          </Grid>
-          <Grid
-            container
-            justifyContent="center"
-            className={classes.pagination}
-          >
-            {renderPaginationButtons()}
-          </Grid>
+        <div style={styles.container}>
+          {characters.map((character) => (
+            <div key={character.id}>
+              <CharacterCard character={character} />
+            </div>
+          ))}
+          <div style={styles.pagination}>{renderPaginationButtons()}</div>
         </div>
       )}
     </>
