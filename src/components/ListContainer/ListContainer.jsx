@@ -1,40 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CharacterCard from "../Common/Card";
-
-const styles = {
-  container: {
-    padding: "16px",
-  },
-  loadingContainer: {
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  pagination: {
-    marginTop: "16px",
-    display: "flex",
-    justifyContent: "center",
-  },
-  button: {
-    padding: "8px 16px",
-    margin: "0 4px",
-    cursor: "pointer",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    backgroundColor: "transparent",
-  },
-  activeButton: {
-    padding: "8px 16px",
-    margin: "0 4px",
-    cursor: "pointer",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    backgroundColor: "#007bff",
-    color: "#fff",
-  },
-};
+import Card from "../Card/Card";
+import "./ListContainer.css";
 
 const ListContainer = () => {
   const [characters, setCharacters] = useState([]);
@@ -88,7 +55,7 @@ const ListContainer = () => {
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          style={page === i ? styles.activeButton : styles.button}
+          className={page === i ? "activeButton" : "button"}
         >
           {i}
         </button>
@@ -100,7 +67,7 @@ const ListContainer = () => {
         <button
           key="first"
           onClick={() => handlePageChange(1)}
-          style={styles.button}
+          className="button"
         >
           1
         </button>
@@ -112,7 +79,7 @@ const ListContainer = () => {
         <button
           key="last"
           onClick={() => handlePageChange(totalPages)}
-          style={styles.button}
+          className="button"
         >
           {totalPages}
         </button>
@@ -125,18 +92,18 @@ const ListContainer = () => {
   return (
     <>
       {loading ? (
-        <div style={styles.loadingContainer}>
+        <div className="loadingContainer">
           <div>Loading...</div>
         </div>
       ) : (
-        <div style={styles.container}>
-          {characters.map((character) => (
-            <div key={character.id}>
-              <CharacterCard character={character} />
-            </div>
-          ))}
-          <div style={styles.pagination}>{renderPaginationButtons()}</div>
-        </div>
+        <>
+          <div className="container">
+            {characters.map((character) => (
+              <Card key={character.id} character={character} />
+            ))}
+          </div>
+          <div className="pagination">{renderPaginationButtons()}</div>
+        </>
       )}
     </>
   );

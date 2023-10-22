@@ -1,0 +1,119 @@
+.card {
+  position: relative;
+  width: 100%;
+  height: 15rem;
+  perspective: 1000px;
+  margin: 10px;
+  background-color: #fff;
+}
+
+.front,
+.back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  transition: transform 0.6s, background-color 0.6s;
+  background-color: #fff;
+}
+
+.back {
+  transform: rotateY(180deg);
+  background-color: #cbcbcb6b;
+}
+
+.card.flipped .front {
+  transform: rotateY(180deg);
+  background-color: #fff;
+}
+
+.card.flipped .back {
+  transform: rotateY(0);
+  background-color: #9e9e9e6b;
+}
+
+.media {
+  width: 40%;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  object-fit: fill;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.subtitle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.status-icon {
+  margin-right: 8px;
+}
+
+.text {
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.subheading {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+@media screen and (min-width: 1494px) {
+  .card {
+    width: 32%;
+  }
+}
+
+@media screen and (max-width: 1494px) and (min-width: 768px) {
+  .card {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  margin: 2.5px 2.5px;
+  font-weight: 300;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  border: none;
+  color: #62656d;
+  background-color: #e4e4e4;
+}
+
+.info_container {
+  height: 10rem;
+}
