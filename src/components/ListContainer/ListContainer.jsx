@@ -62,11 +62,6 @@ const ListContainer = () => {
         </div>
       ) : (
         <>
-          <div className="container">
-            {characters.map((character) => (
-              <Card key={character.id} character={character} />
-            ))}
-          </div>
           <Dropdown
             chartData={chartData}
             setChartData={setChartData}
@@ -75,6 +70,11 @@ const ListContainer = () => {
             handlePageChange={handlePageChange}
             loading={loading}
           />
+          <div className="container">
+            {characters.map((character) => (
+              <Card key={character.id} character={character} />
+            ))}
+          </div>
           <Pagination
             page={page}
             totalPages={totalPages}
