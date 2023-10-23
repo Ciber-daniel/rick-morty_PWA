@@ -72,7 +72,7 @@ const ListContainer = () => {
               loading={loading}
             />
           ) : (
-            ""
+            <div className="no-results">No se encontraron resultados</div>
           )}
           <div className="container">
             {characters.map((character) => (
