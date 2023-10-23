@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Card from "../Card/Card";
+
+// styles
 import "./ListContainer.css";
+
+// components
+import Card from "../Card/Card";
 import Pagination from "../Pagination/Pagination";
 import Dropdown from "../Dropdown/Dropdown";
+import Spinner from "../Spinner/Spinner";
+
+// utils
+import { fetchData } from "../../utils/api.util";
+import { calculateChartData } from "../../utils/chartData.util";
 
 const ListContainer = () => {
   const [characters, setCharacters] = useState([]);
@@ -16,25 +24,16 @@ const ListContainer = () => {
     const fetchCharacters = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `https://rickandmortyapi.com/api/character/?page=${page}`
+
+        const { characters: fetchedCharacters, totalPages } = await fetchData(
+          page
         );
-        setTotalPages(response.data.info.pages);
-        setCharacters(response.data.results);
 
-        // Calculate chart data
-        const types = {};
-        const genders = {};
-        const statuses = {};
+        setTotalPages(totalPages);
+        setCharacters(fetchedCharacters);
 
-        response.data.results.forEach((character) => {
-          const type = character.type.trim() || "Human";
-          const gender = character.gender.trim() || "Unknown";
-          const status = character.status.trim() || "Unknown";
-          types[type] = (types[type] || 0) + 1;
-          genders[gender] = (genders[gender] || 0) + 1;
-          statuses[status] = (statuses[status] || 0) + 1;
-        });
+        const { genders, statuses, types } =
+          calculateChartData(fetchedCharacters);
 
         setChartData({
           types,
@@ -59,7 +58,7 @@ const ListContainer = () => {
     <>
       {loading ? (
         <div className="loading-container">
-          <div>Loading...</div>
+          <Spinner />
         </div>
       ) : (
         <>

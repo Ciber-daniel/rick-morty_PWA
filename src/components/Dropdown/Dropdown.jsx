@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import ReactApexChart from "react-apexcharts";
-import "./Dropdown.css"; // Asegúrate de ajustar la ruta al archivo CSS
+
+// styles
+import "./Dropdown.css";
+
+// components
+import Spinner from "../Spinner/Spinner";
 
 const Dropdown = ({ chartData, loading }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +15,7 @@ const Dropdown = ({ chartData, loading }) => {
   };
 
   return (
-    <div className="dropdown-container" style={{ marginBottom: "10px" }}>
+    <div className="dropdown-container">
       <div
         className={isOpen ? "dropdown-header open" : "dropdown-header"}
         onClick={toggleDropdown}
@@ -23,7 +28,7 @@ const Dropdown = ({ chartData, loading }) => {
       <div className={isOpen ? "dropdown-content open" : "dropdown-content"}>
         {loading ? (
           <div className="loading-container">
-            <div>Loading...</div>
+            <Spinner />
           </div>
         ) : (
           <div className="chart-container">

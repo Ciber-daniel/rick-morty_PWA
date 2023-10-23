@@ -1,6 +1,7 @@
 .dropdown-container {
   position: relative;
   width: 97%;
+  margin-bottom: 10px;
 }
 
 .dropdown-header {
@@ -45,7 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  height: 100vh;
   font-size: 18px;
   color: #333;
 }
