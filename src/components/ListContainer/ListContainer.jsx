@@ -62,14 +62,18 @@ const ListContainer = () => {
         </div>
       ) : (
         <>
-          <Dropdown
-            chartData={chartData}
-            setChartData={setChartData}
-            page={page}
-            totalPages={totalPages}
-            handlePageChange={handlePageChange}
-            loading={loading}
-          />
+          {characters.length > 0 ? (
+            <Dropdown
+              chartData={chartData}
+              setChartData={setChartData}
+              page={page}
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+              loading={loading}
+            />
+          ) : (
+            ""
+          )}
           <div className="container">
             {characters.map((character) => (
               <Card key={character.id} character={character} />
