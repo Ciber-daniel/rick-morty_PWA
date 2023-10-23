@@ -25,8 +25,7 @@ const Card = ({ character }) => {
   const extractEpisodeNumbers = (urls) => {
     return urls
       .map((url) => parseInt(url.match(/\/(\d+)\/?$/)?.[1]))
-      .filter(Boolean)
-      .slice(-20);
+      .filter(Boolean);
   };
 
   const episodeNumbers = extractEpisodeNumbers(character.episode);
@@ -41,7 +40,7 @@ const Card = ({ character }) => {
         <img src={character.image} alt={character.name} className="media" />
         <div className="text-container">
           <h2 className="title">{character.name}</h2>
-          <div className="info_container">
+          <div className="info-container">
             <div className="subtitle-container">
               <FaCircle
                 style={{ color: statusIconColor }}
@@ -69,11 +68,15 @@ const Card = ({ character }) => {
               style={{ color: statusIconColor }}
               className="status-icon"
             />
-            <span className="subtitle">{`${character.status} - ${character.species}`}</span>
+            <span className="subtitle">{`${character.status} - ${
+              character.type || character.species
+            }`}</span>
           </div>
-          <div className="text">
-            <div className="info_container">
-              <span className="subheading">Last Episodes appears:</span>{" "}
+          <span className="subheading">Last Episodes appears:</span>{" "}
+          <div className="text episodes">
+            <div
+              className={`episode-info-container ${isFlipped ? "flipped" : ""}`}
+            >
               {episodeNumbers.map((ep, index) => (
                 <div className="badge" key={index}>
                   {ep}
