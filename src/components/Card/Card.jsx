@@ -49,12 +49,13 @@ const Card = ({ character }) => {
               <span className="subtitle">{`${character.status} - ${character.species}`}</span>
             </div>
             <div className="text">
-              <div>
+              <div className="texts">
                 <span className="subheading">Last Known Location:</span>{" "}
-                {character.location.name}
+                <span>{character.location.name}</span>
               </div>
-              <div>
-                <span className="subheading">Gender:</span> {character.gender}
+              <div className="texts">
+                <span className="subheading">Gender:</span>
+                <span>{character.gender}</span>
               </div>
             </div>
           </div>
