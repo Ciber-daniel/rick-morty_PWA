@@ -30,6 +30,11 @@ const Card = ({ character }) => {
 
   const episodeNumbers = extractEpisodeNumbers(character.episode);
 
+  const handleImageError = (event) => {
+    event.target.onerror = null;
+    event.target.src = "https://via.placeholder.com/500x750.png?text=No+Image";
+  };
+
   return (
     <div
       className={`card ${isFlipped ? "flipped" : ""}`}
@@ -37,7 +42,12 @@ const Card = ({ character }) => {
       style={{ cursor: "pointer" }}
     >
       <div className="front">
-        <img src={character.image} alt={character.name} className="media" />
+        <img
+          src={character.image}
+          alt={character.name}
+          className="media"
+          onError={handleImageError}
+        />
         <div className="text-container">
           <h2 className="title">{character.name}</h2>
           <div className="info-container">
@@ -91,6 +101,7 @@ const Card = ({ character }) => {
           src={character.image}
           alt={character.name}
           className="media"
+          onError={handleImageError}
         />
       </div>
     </div>
