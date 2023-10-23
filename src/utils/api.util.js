@@ -18,3 +18,11 @@ export const fetchData = async (page) => {
   }
 };
 
+export const fetchImage = (imageUrl) => {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.src = imageUrl;
+    image.onload = () => resolve(image);
+    image.onerror = (err) => reject(err);
+  });
+};

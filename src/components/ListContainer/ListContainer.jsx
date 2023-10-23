@@ -10,7 +10,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import Spinner from "../Spinner/Spinner";
 
 // utils
-import { fetchData } from "../../utils/api.util";
+import { fetchData, fetchImage } from "../../utils/api.util";
 import { calculateChartData } from "../../utils/chartData.util";
 
 const ListContainer = () => {
@@ -19,6 +19,27 @@ const ListContainer = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [chartData, setChartData] = useState({});
+
+  const prefetchData = async (numPages) => {
+    try {
+      for (let i = 2; i <= numPages; i++) {
+        const { characters: fetchedCharacters } = await fetchData(i);
+        fetchedCharacters.forEach((character) => {
+          prefetchImage(character.image);
+        });
+      }
+    } catch (error) {
+      console.error("Error prefetching characters:", error);
+    }
+  };
+
+  const prefetchImage = async (imageUrl) => {
+    try {
+      await fetchImage(imageUrl);
+    } catch (error) {
+      console.error("Error prefetching image:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -40,6 +61,11 @@ const ListContainer = () => {
           genders,
           statuses,
         });
+
+        // Prefetch data after loading initial data
+        if (totalPages > 1) {
+          prefetchData(totalPages - 1);
+        }
       } catch (error) {
         console.error("Error fetching characters:", error);
       } finally {
@@ -48,7 +74,7 @@ const ListContainer = () => {
     };
 
     fetchCharacters();
-  }, [page]);
+  }, []);
 
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
@@ -72,7 +98,7 @@ const ListContainer = () => {
               loading={loading}
             />
           ) : (
-            <div className="no-results">No se encontraron resultados</div>
+            <div className="no-results">Not results found</div>
           )}
           <div className="container">
             {characters.map((character) => (
