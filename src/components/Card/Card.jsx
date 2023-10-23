@@ -72,7 +72,7 @@ const Card = ({ character }) => {
               character.type || character.species
             }`}</span>
           </div>
-          <span className="subheading">Last Episodes appears:</span>{" "}
+          <span className="subheading">Episodes where appears:</span>{" "}
           <div className="text episodes">
             <div
               className={`episode-info-container ${isFlipped ? "flipped" : ""}`}
