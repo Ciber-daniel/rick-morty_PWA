@@ -74,7 +74,8 @@ const ListContainer = () => {
     };
 
     fetchCharacters();
-  }, []);
+    // eslint-disable-next-line
+  }, [page]);
 
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
