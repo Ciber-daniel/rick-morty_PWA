@@ -1,5 +1,5 @@
 import React from "react";
-import "./Spinner.css"; // Asegúrate de ajustar la ruta al archivo CSS
+import "./Spinner.css";
 
 const Spinner = () => {
   return (
